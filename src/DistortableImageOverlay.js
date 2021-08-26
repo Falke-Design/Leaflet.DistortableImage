@@ -58,31 +58,9 @@ L.DistortableImageOverlay = L.ImageOverlay.extend({
         }
       }
 
-      /** if there is a featureGroup, only its editable option matters */
-      const eventParents = this._eventParents;
-      if (eventParents) {
-        this.eP = eventParents[Object.keys(eventParents)[0]];
-        if (this.eP.editable) { this.editing.enable(); }
-      } else {
-        if (this.editable) { this.editing.enable(); }
-        this.eP = null;
-      }
+      if (this.editable) { this.editing.enable(); }
+      this.eP = null;
     });
-
-    L.DomEvent.on(this.getElement(), 'click', this.select, this);
-    L.DomEvent.on(map, {
-      singleclickon: this._singleClickListeners,
-      singleclickoff: this._resetClickListeners,
-      singleclick: this._singleClick,
-    }, this);
-
-    /**
-     * custom events fired from DoubleClickLabels.js. Used to differentiate
-     * single / dblclick to not deselect images on map dblclick.
-     */
-    if (!(map.doubleClickZoom.enabled() || map.doubleClickLabels.enabled())) {
-      L.DomEvent.on(map, 'click', this.deselect, this);
-    }
 
     this.fire('add');
 
@@ -91,14 +69,6 @@ L.DistortableImageOverlay = L.ImageOverlay.extend({
   },
 
   onRemove(map) {
-    L.DomEvent.off(this.getElement(), 'click', this.select, this);
-    L.DomEvent.off(map, {
-      singleclickon: this._singleClickListeners,
-      singleclickoff: this._resetClickListeners,
-      singleclick: this._singleClick,
-    }, this);
-    L.DomEvent.off(map, 'click', this.deselect, this);
-
     if (this.editing) { this.editing.disable(); }
     this.fire('remove');
 
@@ -162,7 +132,6 @@ L.DistortableImageOverlay = L.ImageOverlay.extend({
     const edit = this.editing;
     if (!edit.enabled()) { return; }
 
-    edit._removeToolbar();
     edit._hideMarkers();
 
     this._selected = false;
@@ -181,7 +150,6 @@ L.DistortableImageOverlay = L.ImageOverlay.extend({
     this._programmaticGrouping();
 
     this._selected = true;
-    edit._addToolbar();
     edit._showMarkers();
     this.fire('select');
 

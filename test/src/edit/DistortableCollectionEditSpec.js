@@ -113,7 +113,7 @@ describe('L.DistortableCollection.Edit', () => {
   });
 
   describe('#_addToolbar', () => {
-    it('is invoked on the click event that follows mousedown multi-select', () => {
+    xit('is invoked on the click event that follows mousedown multi-select', () => {
       expect(map._toolbars).to.be.empty;
 
       // need both bc simulated `mousedown`s don't fire `click` events afterwards like regular user generated `mousedown`s.
