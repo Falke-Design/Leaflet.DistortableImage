@@ -89,9 +89,6 @@ module.exports = function(grunt) {
   grunt.registerTask('test', ['eslint', 'karma:test']);
 
   grunt.registerTask('build', [
-    'eslint',
-    'karma:development:start',
-    'coverage',
     'webpack',
   ]);
 
