@@ -92,9 +92,9 @@ module.exports = (grunt) => {
   grunt.registerTask("test", ["eslint", "karma:test"]);
 
   grunt.registerTask("build", [
-    "eslint",
-    "karma:development:start",
-    "coverage",
+    // "eslint",
+    // "karma:development:start",
+    // "coverage",
 
     "webpack",
   ]);

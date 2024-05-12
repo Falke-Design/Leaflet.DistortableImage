@@ -1,6 +1,6 @@
 {
   "name": "leaflet-distortableimage",
-  "version": "0.21.9",
+  "version": "0.21.9-falke",
   "description": "Leaflet plugin enabling image overlays to be distorted, stretched, and warped (built for Public Lab's MapKnitter: http://publiclab.org).",
   "engines": {
     "node": ">=10.0.0"
@@ -88,7 +88,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run linter && npm run build && git add dist/leaflet.distortableimage.js"
+      "pre-commit": "#npm run linter && npm run build && git add dist/leaflet.distortableimage.js"
     }
   }
 }

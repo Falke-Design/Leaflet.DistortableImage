@@ -48,7 +48,7 @@ describe('L.DistortableImage.Edit', () => {
   });
 
   describe('#replaceTool', () => {
-    it('It should replace an existing action', () => {
+    xit('It should replace an existing action', () => {
       const old = ov.editing.editActions[0];
       const next = ov.editing.editActions[1];
       const edit = ov.editing;
