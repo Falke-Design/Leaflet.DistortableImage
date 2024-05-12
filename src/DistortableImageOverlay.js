@@ -63,9 +63,6 @@ L.DistortableImageOverlay = L.ImageOverlay.extend({
     });
 
     this.fire('add');
-
-    L.DomEvent.on(this.getElement(), 'mousemove', this.activateTooltip, this);
-    L.DomEvent.on(this.getElement(), 'mouseout', this.closeTooltip, this);
   },
 
   onRemove(map) {
@@ -73,9 +70,6 @@ L.DistortableImageOverlay = L.ImageOverlay.extend({
     this.fire('remove');
 
     L.ImageOverlay.prototype.onRemove.call(this, map);
-
-    L.DomEvent.on(this.getElement(), 'mouseout', this.closeTooltip, this);
-    L.DomEvent.off(this.getElement(), 'mousemove', this.deactivateTooltip, this);
   },
 
   _initImageDimensions() {
