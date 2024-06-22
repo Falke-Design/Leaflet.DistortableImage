@@ -39,37 +39,40 @@ L.DistortableImageOverlay = L.ImageOverlay.extend({
     }
 
     // Have to wait for the image to load because need to access its w/h
-    L.DomEvent.on(this.getElement(), 'load', () => {
-      this.getPane().appendChild(this.getElement());
-      this._initImageDimensions();
-
-      if (this.options.rotation) {
-        const units = this.options.rotation.deg >= 0 ? 'deg' : 'rad';
-        this.setAngle(this.options.rotation[units], units);
-      } else {
-        this.rotation = {deg: 0, rad: 0};
-        this._reset();
-      }
-
-      /* Initialize default corners if not already set */
-      if (!this._corners) {
-        if (map.options.zoomAnimation && L.Browser.any3d) {
-          map.on('zoomanim', this._animateZoom, this);
-        }
-      }
-
-      if (this.editable) { this.editing.enable(); }
-      this.eP = null;
-    });
+    L.DomEvent.on(this.getElement(), 'load', this._initAfterLoading, this);
 
     this.fire('add');
   },
 
   onRemove(map) {
+    L.DomEvent.on(this.getElement(), 'load', this._initAfterLoading, this);
     if (this.editing) { this.editing.disable(); }
     this.fire('remove');
 
     L.ImageOverlay.prototype.onRemove.call(this, map);
+  },
+
+  _initAfterLoading() {
+    this.getPane().appendChild(this.getElement());
+    this._initImageDimensions();
+
+    if (this.options.rotation) {
+      const units = this.options.rotation.deg >= 0 ? 'deg' : 'rad';
+      this.setAngle(this.options.rotation[units], units);
+    } else {
+      this.rotation = {deg: 0, rad: 0};
+      this._reset();
+    }
+
+    /* Initialize default corners if not already set */
+    if (!this._corners) {
+      if (map.options.zoomAnimation && L.Browser.any3d) {
+        map.on('zoomanim', this._animateZoom, this);
+      }
+    }
+
+    if (this.editable) { this.editing.enable(); }
+    this.eP = null;
   },
 
   _initImageDimensions() {
