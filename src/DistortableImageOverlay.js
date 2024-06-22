@@ -45,7 +45,7 @@ L.DistortableImageOverlay = L.ImageOverlay.extend({
   },
 
   onRemove(map) {
-    L.DomEvent.on(this.getElement(), 'load', this._initAfterLoading, this);
+    L.DomEvent.off(this.getElement(), 'load', this._initAfterLoading, this);
     if (this.editing) { this.editing.disable(); }
     this.fire('remove');
 
